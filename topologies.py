@@ -3,10 +3,12 @@ import time
 import abc
 from constants import c1, c2
 
+
 class Topology():
     @abc.abstractmethod
     def update_velocity(self, swarm, inertia_weight, global_best_position, problem):
         pass
+
 
 class Focal(Topology):
     def update_velocity(self, swarm, inertia_weight, global_best_position, problem):
@@ -22,6 +24,7 @@ class Focal(Topology):
                 initial_value = inertia_weight * swarm[i].velocity[j]
                 velocity[j] = initial_value + personal_component[i][j] + global_component[i][j]
             swarm[i].velocity = velocity
+
 
 class Local(Topology):
     def update_velocity(self, swarm, inertia_weight, global_best_position, problem):
@@ -39,7 +42,6 @@ class Local(Topology):
 
             swarm[i].velocity = velocity
 
-
     def _get_nearest_neighbor(self, particle, swarm):
         nearest_neighbor = 1000000000
         index_of_nearest = 0
@@ -49,8 +51,7 @@ class Local(Topology):
             if value < nearest_neighbor:
                 nearest_neighbor = value
                 index_of_nearest = i
-        return swarm[i]
-
+        return swarm[index_of_nearest]
 
     def _calculate_euclidean_distance(self, particle, particle2):
         some_of_terms = 0
@@ -58,17 +59,28 @@ class Local(Topology):
             some_of_terms += (particle.position_list[i] - particle2.position_list[i]) ** 2
         return (some_of_terms ** 0.5)
 
+
 class Global(Topology):
 
     def update_velocity(self, swarm, inertia_weight, global_best_position, problem):
         personal_component = []
         global_component = []
         velocity = []
+        max_vel = problem.upper_bound - problem.lower_bound
 
         for i in range(0, len(swarm)):
             for j in range(0, len(swarm)):
                 personal_component = c1 * random.random() * (swarm[i].personal_best[j] - swarm[i].position_list[j])
                 global_component = c2 * random.random() * (global_best_position[j] - swarm[i].position_list[j])
                 initial_value = inertia_weight * swarm[i].velocity[j]
-                velocity.append(initial_value + personal_component + global_component)
+                value = initial_value + personal_component + global_component
+
+                if value > max_vel:
+                    value = max_vel
+
+                if value < -max_vel:
+                    value = -max_vel
+
+                velocity.append(value)
+
             swarm[i].velocity = velocity

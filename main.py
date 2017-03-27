@@ -1,24 +1,21 @@
 from pso import PSO
-from problems import Rastrigin
+from problems import Sphere
 from topologies import Global
 
 
 def main():
-    sphere = Rastrigin(30)
+    sphere = Sphere(30)
     topology = Global()
     pso = PSO(sphere, topology)
     result = []
-    result = pso.search(2)
+    result = pso.search(1)
 
     file = open("testfile.txt", "w")
 
     file.write("\n")
     for item in result:
-        for i in item:
-            file.write("{}, ".format(i))
+        file.write("{}, ".format(item))
         file.write("\n")
-
-    file.write("\n")
     file.close()
 
 main()

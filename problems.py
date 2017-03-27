@@ -11,6 +11,7 @@ class Problem():
     def evaluate_solution(self, position_list):
         pass
 
+
 class Sphere(Problem):
 
     def __init__(self, dimensions):
@@ -38,6 +39,7 @@ class Rastrigin(Problem):
             solution += (position_list[i] ** 2 + 10 - 10*math.cos(2*math.pi*position_list[i]))
         return solution
 
+
 class Rosenbrocks(Problem):
 
     def __init__(self, dimensions):
@@ -47,9 +49,6 @@ class Rosenbrocks(Problem):
 
     def evaluate_solution(self, position_list):
         solution = 0
-        for i in range(0, len(position_list)):
-            if i + 1 < 30:
-                solution += 100 * ((position_list[i] ** 2 - position_list[i + 1]) ** 2) + ((position_list[i] - 1) ** 2)
-            else:
-                solution += 100 * ((position_list[i] ** 2 - position_list[0]) ** 2) + ((position_list[i] - 1) ** 2)
+        for i in range(0, len(position_list) - 1):
+            solution += 100 * ((position_list[i] ** 2 - position_list[i + 1]) ** 2) + ((position_list[i] - 1) ** 2)
         return solution
