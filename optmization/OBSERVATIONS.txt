@@ -1,0 +1,20 @@
+OBSERVATIONS 
+
+initialization
+
+position
+x(0) = x min,j + r j (x max,j − x min,j ),
+r j = U (0, 1)
+
+velocity
+0 ou U (0, 1)
+
+personal best
+yi(0) = x(0)
+
+
+pso parameters
+swarm size
+Neighborhood size
+Number of iterations
+Acceleration coefficients

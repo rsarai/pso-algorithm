@@ -16,8 +16,8 @@ class Sphere(Problem):
 
     def __init__(self, dimensions):
         self.dimensions = dimensions
-        self.lower_bound = 100
-        self.upper_bound = -100
+        self.lower_bound = -100
+        self.upper_bound = 100
 
     def evaluate_solution(self, position_list):
         solution = 0

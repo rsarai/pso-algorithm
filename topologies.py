@@ -74,13 +74,8 @@ class Global(Topology):
                 global_component = c2 * random.random() * (global_best_position[j] - swarm[i].position_list[j])
                 initial_value = inertia_weight * swarm[i].velocity[j]
                 value = initial_value + personal_component + global_component
-
                 if value > max_vel:
                     value = max_vel
-
-                if value < -max_vel:
-                    value = -max_vel
-
                 velocity.append(value)
 
             swarm[i].velocity = velocity
