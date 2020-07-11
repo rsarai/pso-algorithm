@@ -30,7 +30,7 @@ class PSO():
 
     def generate_random_velocity(self):
         velocity = []
-        for i in range(0, 30):
+        for _ in range(0, 30):
             velocity.append(0)
         return velocity
 
