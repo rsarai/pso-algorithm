@@ -9,7 +9,7 @@ class Global:
 
     def get_new_velocity(self, inertia_coef, particle, swarm_global_best_pos, clerc=False):
         new_velocities_list = []
-        for i in range(len(particle.position_list) - 1):
+        for i in range(0, len(particle.position_list)):
             r1 = random.random()
             personal_component = self.c1_individuality_factor * r1 * (particle.personal_best_list[i] - particle.position_list[i])
 
@@ -45,7 +45,7 @@ class Local:
     def get_new_velocity(self, inertia_coef, particle, swarm, clerc=False):
         neighborhood_particle = self._get_nearest_neighborhood(particle, swarm)
         new_velocities_list = []
-        for i in range(len(particle.position_list) - 1):
+        for i in range(0, len(particle.position_list)):
             r1 = random.random()
             personal_component = self.c1_individuality_factor * r1 * (particle.personal_best_list[i] - particle.position_list[i])
 

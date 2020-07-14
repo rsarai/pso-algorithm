@@ -74,17 +74,24 @@ class PSOAlgorithm:
     def updates_position(self, particle):
         new_positions = [
             particle.position_list[i] + particle.velocity_list[i]  # note that velocity list was already updated
-            for i in range(0, len(particle.position_list) - 1)
+            for i in range(0, len(particle.position_list))
         ]
-        new_positions = [self.bound[1] if pos > self.bound[1] else pos for pos in new_positions]
-        new_positions = [self.bound[0] if pos < self.bound[0] else pos for pos in new_positions]
-        particle.set_position_list(new_positions)
 
-    def updates_inertia_weight_if_necessary(self, inertia_type):
+        final_new_positions = []
+        for pos in new_positions:
+            if pos > self.bound[1]:
+                final_new_positions.append(self.bound[1])
+            elif pos < self.bound[0]:
+                final_new_positions.append(self.bound[0])
+            else:
+                final_new_positions.append(pos)
+        particle.set_position_list(final_new_positions)
+
+    def updates_inertia_weight_if_necessary(self, inertia_type, i):
         if inertia_type == 1:
             self.inertia_coef = 0.8
         elif inertia_type == 2:
-            self.inertia_coef -= 0.00005
+            self.inertia_coef = (0.9 - 0.4) * ((self.num_iterations - i)/self.num_iterations) + 0.4
         elif inertia_type == 3:
             greek_letter = self.topology.c1_individuality_factor + self.topology.c2_sociability_factor
             square_func_val = (greek_letter * greek_letter) - (4 * greek_letter)
@@ -99,10 +106,10 @@ class PSOAlgorithm:
                 particle.update_personal_best()
                 self.updates_global_best(particle)
 
-            self.updates_inertia_weight_if_necessary(inertia_type)
+            self.updates_inertia_weight_if_necessary(inertia_type, i)
             for particle in self.swarm:
                 self.updates_velocity(particle, inertia_type)
                 self.updates_position(particle)
 
             self.list_global_best_values.append(self.global_best)
-            print(f"End of iteration {i}. Global best is {self.global_best}")
+            print(f"End of iteration {i}. Global best is {self.global_best}. Best position len is: {len(self.global_best_position)}")

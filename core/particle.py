@@ -2,8 +2,7 @@ from core.fitness_functions import sphere_function
 
 
 class Particle:
-    def __init__(self, position_list=None, velocity_list=None,
-                 fitness_function=sphere_function):
+    def __init__(self, fitness_function, position_list=None, velocity_list=None):
         self.fitness = float('inf')
         self.fitness_best = float('inf')
         self.fitness_function = fitness_function
