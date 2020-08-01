@@ -8,18 +8,16 @@ def sphere_function(position_list):
     return fitness
 
 
-def rastrigin_function(position_list):
-    fitness = 0
-    for i in range(0, len(position_list)):
-        fitness += (position_list[i] ** 2 + 10 - 10*math.cos(2*math.pi*position_list[i]))
-    return fitness
+def rastrigin_function(x):
+    f_x = [xi ** 2 - 10 * math.cos(2 * math.pi * xi) + 10 for xi in x]
+    return sum(f_x)
 
 
-def rosenbrocks_function(position_list):
-    fitness = 0
-    for i in range(0, len(position_list) - 1):
-        fitness += 100 * ((position_list[i] ** 2 - position_list[i + 1]) ** 2) + ((position_list[i] - 1) ** 2)
-    return fitness
+def rosenbrocks_function(x):
+    sum_ = 0.0
+    for i in range(1, len(x) - 1):
+        sum_ += 100 * (x[i + 1] - x[i] ** 2) ** 2 + (x[i] - 1) ** 2
+    return sum_
 
 
 def ackley_function(position_list):

@@ -69,19 +69,26 @@ class Local:
         return new_velocities_list
 
     def _get_nearest_neighborhood(self, particle, swarm):
-        nearest_neighbor = float('inf')
-        other_particle = None
+        index = swarm.index(particle)
+        if index == len(swarm) - 1:
+            return swarm[0]
 
-        for neighbor_particle in swarm:
-            value = self._calculate_euclidean_distance(particle, neighbor_particle)
-            if value < nearest_neighbor:
-                nearest_neighbor = value
-                other_particle = neighbor_particle
-        return other_particle
+        return swarm[index + 1]
+
+        # implementation using euclidian distance
+        # nearest_neighbor = float('inf')
+        # other_particle = None
+
+        # for neighbor_particle in swarm:
+        #     value = self._calculate_euclidean_distance(particle, neighbor_particle)
+        #     if value < nearest_neighbor:
+        #         nearest_neighbor = value
+        #         other_particle = neighbor_particle
+        # return other_particle
 
     def _calculate_euclidean_distance(self, particle, particle2):
         some_of_terms = 0
-        for i in range(0, len(particle.position_list) - 1):
+        for i in range(0, len(particle.position_list)):
             some_of_terms += (particle.position_list[i] - particle2.position_list[i]) ** 2
         return (some_of_terms ** 0.5)
 

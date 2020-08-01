@@ -112,4 +112,4 @@ class PSOAlgorithm:
                 self.updates_position(particle)
 
             self.list_global_best_values.append(self.global_best)
-            print(f"End of iteration {i}. Global best is {self.global_best}. Best position len is: {len(self.global_best_position)}")
+            print(f"End of iteration {i}. Best result is {self.global_best}. Best position len is: {len(self.global_best_position)}")
